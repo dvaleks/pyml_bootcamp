@@ -47,8 +47,10 @@ def main():
     print(f'{type(d)}: {d}')
 
     # 5) преобразует множество в строку.
-    d = str(d)
-    print(f'{type(d)}: {d}')
+    s = ''
+    for e in d:
+        s += str(e)
+    print(f'{type(s)}: {s}')
 
 
 if __name__ == '__main__':
