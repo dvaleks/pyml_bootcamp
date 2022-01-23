@@ -15,7 +15,7 @@ class DataProcessor:
         'ceil': np.ceil,
         'floor': np.floor,
         'rint': np.rint,
-        # 'modf': np.modf,
+        'modf': np.modf,
         'isnan': np.isnan,
         'isfinite': np.isfinite,
         'isinf': np.isinf,
@@ -56,5 +56,31 @@ print('data2:')
 print(data2)
 
 for op in DataProcessor.supported_ops:
-    print('doing op:', op)
-    dp.slice_op(op)
+    try:
+        print('doing op:', op, end='')
+        dp.slice_op(op)
+    except Exception as ex:
+        print(' - exception: {0}'.format(ex))
+    else:
+        print(' - OK')
+
+print('-' * 100)
+print('Transform 2d array to 3d')
+print('-' * 100)
+
+
+def transform_2d_to_3d(inp, n):
+    data = np.reshape(inp, (1, inp.shape[0], inp.shape[1]))
+    layer = data.copy()
+    for i in range(n):
+        data = np.append(data, layer, axis=0)
+    return data
+
+
+data = np.random.randn(2, 3)
+print('input 2d array:')
+print(data)
+print('-' * 100)
+print('transform_2d_to_3d(data, 3)')
+print('output 3d array:')
+print(transform_2d_to_3d(data, 3))
